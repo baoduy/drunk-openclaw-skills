@@ -23,5 +23,4 @@ jobs:
           request_rate: 4
           files: |
             skills/trading-analyzer/*.py
-            skills/trading-analyzer/*.sh
             skills/trading-analyzer/*.md
