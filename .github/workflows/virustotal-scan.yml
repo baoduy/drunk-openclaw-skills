@@ -1,0 +1,26 @@
+name: VirusTotal Scan - Trading Analyzer
+
+permissions:
+  contents: read
+
+on:
+  push:
+    paths:
+      - "skills/trading-analyzer/**"
+
+jobs:
+  virustotal-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: VirusTotal Scan
+        uses: crazy-max/ghaction-virustotal@v4
+        with:
+          vt_api_key: ${{ secrets.VT_API_KEY }}
+          request_rate: 4
+          files: |
+            skills/trading-analyzer/*.py
+            skills/trading-analyzer/*.sh
+            skills/trading-analyzer/*.md

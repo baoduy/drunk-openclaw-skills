@@ -9,7 +9,7 @@ RUN curl -LsSf https://astral.sh/uv/install.sh | sh && \
 
 # Install Node.js and npm (required for pnpm)
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends nodejs npm && \
+    apt-get install -y --no-install-recommends nodejs npm wget && \
     rm -rf /var/lib/apt/lists/*
 
 # Install clawhub globally with pnpm
