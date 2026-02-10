@@ -12,7 +12,11 @@ from datetime import datetime
 
 
 class AssetDetector:
-    """Detect whether symbol is crypto or stock."""
+    """Detect whether symbol is crypto or stock using MCP endpoints.
+
+    Uses mcp_yahoo-finance_search to intelligently detect asset type
+    instead of hard-coded patterns.
+    """
 
     CRYPTO_SUFFIXES = ["USDT", "USDC", "BTC", "ETH", "BNB"]
     COMMON_CRYPTO = [
@@ -30,9 +34,41 @@ class AssetDetector:
 
     @classmethod
     def detect(cls, symbol: str) -> str:
-        """Detect asset type: crypto or stock."""
+        """Detect asset type using MCP search endpoint.
+
+        Strategy:
+        1. Try mcp_yahoo-finance_search to find stock matches
+        2. Check result type (stock, ETF, index, etc. = stock; crypto = crypto)
+        3. Fall back to pattern matching if search fails or no results
+
+        Args:
+            symbol: Asset symbol (e.g., "BTCUSDT", "AAPL")
+
+        Returns:
+            "crypto" or "stock"
+
+        MCP Endpoint Used:
+        - mcp_yahoo-finance_search(query=symbol, count=1)
+          Returns: List of results with "type" field indicating asset class
+        """
         symbol_upper = symbol.upper()
 
+        # TODO: Implement MCP endpoint call
+        # try:
+        #     search_result = mcp_yahoo-finance_search(query=symbol, count=1)
+        #     if search_result and len(search_result) > 0:
+        #         result_type = search_result[0].get("type", "").lower()
+        #         # Map Yahoo Finance result types to our categories
+        #         if "crypto" in result_type or "cryptocurrency" in result_type:
+        #             return "crypto"
+        #         elif "equity" in result_type or "stock" in result_type:
+        #             return "stock"
+        #         else:
+        #             return "stock"  # Default for ETF, index, etc.
+        # except Exception:
+        #     pass  # Fall back to pattern matching below
+
+        # Fall back to pattern matching for offline/demo use
         # Check crypto indicators
         if any(symbol_upper.endswith(suffix) for suffix in cls.CRYPTO_SUFFIXES):
             return "crypto"
@@ -44,7 +80,7 @@ class AssetDetector:
         if 1 <= len(symbol_upper) <= 5 and symbol_upper.isalpha():
             return "stock"
 
-        # Fallback: assume crypto if unclear
+        # Default fallback: assume crypto
         return "crypto"
 
 

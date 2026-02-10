@@ -1,6 +1,6 @@
 ---
 name: trading-analyzer
-description: Multi-source trading analyzer combining crypto data (TradingView), stock data (Alpha Vantage), and market intelligence (Yahoo Finance) into unified analysis reports with price trends, technical indicators, and sentiment analysis.
+description: Multi-source trading analyzer (`/drunk-trading-analyzer`) combining crypto data (TradingView), stock data (Alpha Vantage), and market intelligence (Yahoo Finance) into unified analysis reports with price trends, technical indicators, and sentiment analysis.
 metadata:
   {
     "openclaw":
