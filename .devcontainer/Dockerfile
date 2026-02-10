@@ -10,14 +10,15 @@ RUN curl -LsSf https://astral.sh/uv/install.sh | sh && \
 # Install Node.js and npm (required for pnpm)
 RUN apt-get update && \
     apt-get install -y --no-install-recommends nodejs npm wget && \
+    apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
 # Install clawhub globally with pnpm
 RUN npm install -g clawhub
 
 # Upgrade pip and install Python packages
-RUN pip3 install --upgrade pip && \
-    pip3 install \
+RUN pip3 install --upgrade pip --no-cache-dir && \
+    pip3 install --no-cache-dir \
     requests \
     pandas \
     pytest \
