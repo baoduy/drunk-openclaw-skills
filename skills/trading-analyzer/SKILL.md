@@ -1,44 +1,34 @@
 ---
 name: trading-analyzer
 description: Multi-source trading analyzer combining crypto data (TradingView), stock data (Alpha Vantage), and market intelligence (Yahoo Finance) into unified analysis reports with price trends, technical indicators, and sentiment analysis.
-metadata: {"openclaw":{"emoji":"📈","os":["darwin","linux","win32"],"requires":{"bins":["python3","node"]},"install":[{"id":"uv-install","kind":"exec","command":"pip3 install uv","label":"Install uv package manager"}]}}
+metadata:
+  {
+    "openclaw":
+      {
+        "emoji": "📈",
+        "os": ["darwin", "linux", "win32"],
+        "requires": { "bins": ["python3", "node"] },
+        "install":
+          [
+            {
+              "id": "uv-install",
+              "kind": "exec",
+              "command": "pip3 install uv",
+              "label": "Install uv package manager",
+            },
+          ],
+      },
+  }
 ---
 
 # Trading Analyzer Skill
 
 Multi-source market analysis combining cryptocurrency and stock data with AI-powered insights.
 
-## Installation
-
-Ensure MCP servers are configured in `.vscode/mcp.json`:
-
-```json
-{
-  "servers": {
-    "tradingview-mcp": {
-      "command": "uv",
-      "args": ["tool", "run", "--from", "git+https://github.com/atilaahmettaner/tradingview-mcp.git", "tradingview-mcp"]
-    },
-    "alphavantage": {
-      "command": "uvx",
-      "args": ["av-mcp", "YOUR_API_KEY"]
-    },
-    "yahoo-finance-server": {
-      "command": "uvx",
-      "args": ["yahoo-finance-server"]
-    }
-  }
-}
-```
-
-Install Python dependencies:
-```bash
-pip3 install requests pandas
-```
-
 ## Quick Start
 
 ### Analyze Cryptocurrency
+
 ```python
 # MCP tools available:
 # - coin_analysis: Get crypto analysis (TradingView)
@@ -48,6 +38,7 @@ pip3 install requests pandas
 ```
 
 ### Analyze Stock
+
 ```python
 # MCP tools available:
 # - get-ticker-info: Company fundamentals (Alpha Vantage)
@@ -59,60 +50,70 @@ pip3 install requests pandas
 ## Common Use Cases
 
 ### 1. Quick Crypto Analysis
+
 - Call `coin_analysis` for immediate technical overview
 - Use `smart_volume_scanner` to identify breakout opportunities
 - Check `top_gainers` for bullish signals
 
 ### 2. Fundamental Stock Research
+
 - Call `get-ticker-info` for company metrics
 - Fetch `get-ticker-news` for sentiment analysis
 - Review `get-price-history` for trend confirmation
 
 ### 3. Market Screening
+
 - Use crypto screeners (`top_gainers`, `top_losers`, `volume_breakout_scanner`) to find opportunities
 - Consolidate results into unified trading strategy
 
 ### 4. Consolidated Report
+
 - Combine price + technical + news + fundamentals
 - Deliver single analysis with actionable recommendations
 
 ## MCP Tools Reference
 
 ### TradingView (Crypto Analysis)
-| Tool | Purpose |
-|------|---------|
-| `coin_analysis` | Detailed analysis on specific coin (indicators, metrics) |
-| `smart_volume_scanner` | Volume + RSI + price change combination scan |
-| `volume_breakout_scanner` | Coins with volume and price breakouts |
-| `top_gainers` | Best performing coins (Bollinger Band filtered) |
-| `top_losers` | Worst performing coins |
-| `advanced_candle_pattern` | Progressive candle size patterns across timeframes |
-| `consecutive_candles_scan` | Growing/shrinking consecutive candles |
+
+| Tool                       | Purpose                                                  |
+| -------------------------- | -------------------------------------------------------- |
+| `coin_analysis`            | Detailed analysis on specific coin (indicators, metrics) |
+| `smart_volume_scanner`     | Volume + RSI + price change combination scan             |
+| `volume_breakout_scanner`  | Coins with volume and price breakouts                    |
+| `top_gainers`              | Best performing coins (Bollinger Band filtered)          |
+| `top_losers`               | Worst performing coins                                   |
+| `advanced_candle_pattern`  | Progressive candle size patterns across timeframes       |
+| `consecutive_candles_scan` | Growing/shrinking consecutive candles                    |
 
 ### Alpha Vantage (Stock Data)
-| Tool | Purpose |
-|------|---------|
-| `get_ticker_info` | Company fundamentals, metrics, governance |
-| `get_price_history` | Historical OHLC data for trend analysis |
-| `ticker_earning` | Earnings data and upcoming dates |
+
+| Tool                | Purpose                                   |
+| ------------------- | ----------------------------------------- |
+| `get_ticker_info`   | Company fundamentals, metrics, governance |
+| `get_price_history` | Historical OHLC data for trend analysis   |
+| `ticker_earning`    | Earnings data and upcoming dates          |
 
 ### Yahoo Finance (Market Intelligence)
-| Tool | Purpose |
-|------|---------|
-| `get_ticker_news` | Recent news articles with sentiment |
-| `get-top-entities` | Top stocks/ETFs by sector |
+
+| Tool               | Purpose                             |
+| ------------------ | ----------------------------------- |
+| `get_ticker_news`  | Recent news articles with sentiment |
+| `get-top-entities` | Top stocks/ETFs by sector           |
 
 ## Configuration
 
 ### Exchange Options (Crypto)
+
 - `BINANCE` (default highest liquidity)
 - `KUCOIN`
 - `BYBIT`
 
 ### Timeframes (Crypto)
+
 - `5m`, `15m`, `1h`, `4h`, `1D` (default), `1W`, `1M`
 
 ### Output Formats
+
 - `markdown` (default) - Formatted report
 - `json` - Raw data structure
 
@@ -121,12 +122,13 @@ pip3 install requests pandas
 Automatically routes to correct analyzer:
 
 1. **Crypto**: Ends with USDT, USDC, BTC, ETH, BNB OR common crypto pairs (BTC, ETH, SOL, ADA)
-2. **Stock**: 1-5 letter tickers (AAPL, TSLA, MSFT) 
+2. **Stock**: 1-5 letter tickers (AAPL, TSLA, MSFT)
 3. **Fallback**: Attempts stock lookup first, then crypto
 
 ## Example Reports
 
 ### Crypto Report Structure
+
 ```
 # Trading Analysis: BTCUSDT
 
@@ -145,7 +147,8 @@ Exchange: BINANCE | Sentiment: Neutral-Bearish
 Signal: HOLD | Risk: Moderate
 ```
 
-### Stock Report Structure  
+### Stock Report Structure
+
 ```
 # Trading Analysis: AAPL
 
@@ -194,6 +197,7 @@ python3 -c "import requests; print(requests.__version__)"
 ## Extensions
 
 To add new data sources:
+
 1. Create new analyzer in `analyzers/` directory
 2. Implement `analyze(symbol, options)` interface
 3. Register in routing logic

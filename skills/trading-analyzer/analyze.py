@@ -50,12 +50,12 @@ class AssetDetector:
 
 class CryptoAnalyzer:
     """Analyze cryptocurrency using TradingView MCP.
-    
+
     MCP Tools to use:
     - mcp_tradingview-m_coin_analysis: Get detailed coin analysis
     - mcp_tradingview-m_volume_confirmation_analysis: Get volume confirmation
     - mcp_tradingview-m_smart_volume_scanner: Scan for volume patterns
-    
+
     Parameters:
     - symbol: Coin symbol (e.g., "BTCUSDT", "ETHUSDT")
     - exchange: Exchange name (default: "BINANCE", options: "KUCOIN", "BYBIT")
@@ -65,11 +65,11 @@ class CryptoAnalyzer:
     @staticmethod
     def analyze(symbol: str, exchange: str = "BINANCE", timeframe: str = "1D") -> dict:
         """Get cryptocurrency analysis using TradingView MCP tools.
-        
+
         Example MCP calls:
         1. mcp_tradingview-m_coin_analysis(symbol="BTCUSDT", exchange="BINANCE", timeframe="1D")
         2. mcp_tradingview-m_volume_confirmation_analysis(symbol="BTCUSDT", exchange="BINANCE", timeframe="1D")
-        
+
         Expected response structure (example):
         {
             "symbol": "BTCUSDT",
@@ -85,13 +85,29 @@ class CryptoAnalyzer:
             "technical_analysis": {
                 "trend": "Bearish",
                 "rsi": 35,
-                "macd": "NegYahoo Finance MCP.
-    
+                "macd": "Negative",
+                "bollinger_bands": "Contracting",
+                "support_level": 44000.00,
+                "resistance_level": 46500.00
+            },
+            "market_sentiment": "Bearish"
+        }
+        """
+        raise NotImplementedError(
+            "Replace this with actual MCP tool calls. "
+            "Use mcp_tradingview-m_coin_analysis and mcp_tradingview-m_volume_confirmation_analysis. "
+            "See docstring for example calls and expected response structure."
+        )
+
+
+class StockAnalyzer:
+    """Analyze stocks using Yahoo Finance MCP.
+
     MCP Tools to use:
     - mcp_yahoo-finance_get-ticker-info: Get comprehensive stock data
     - mcp_yahoo-finance_get-ticker-news: Get recent news articles
     - mcp_yahoo-finance_ticker-earning: Get earnings data
-    
+
     Parameters:
     - symbol: Stock ticker symbol (e.g., "AAPL", "GOOGL", "TSLA")
     """
@@ -99,17 +115,17 @@ class CryptoAnalyzer:
     @staticmethod
     def analyze(symbol: str) -> dict:
         """Get stock analysis using Yahoo Finance MCP tools.
-        
+
         Example MCP calls:
         1. mcp_yahoo-finance_get-ticker-info(symbol="AAPL")
            Returns: company info, financials, trading metrics, governance data
-        
+
         2. mcp_yahoo-finance_get-ticker-news(symbol="AAPL", count=10)
            Returns: recent news with title, content, source, published date
-        
+
         3. mcp_yahoo-finance_ticker-earning(symbol="AAPL", period="quarterly")
            Returns: earnings data including next date, previous EPS, estimated EPS
-        
+
         Expected response structure (example):
         {
             "symbol": "AAPL",
@@ -151,35 +167,13 @@ class CryptoAnalyzer:
         # TODO: Call mcp_yahoo-finance_ticker-earning with symbol and period
         # TODO: Parse and consolidate the results into the expected format
         # TODO: Calculate recommendation and target_price based on fundamentals
-        
+
         raise NotImplementedError(
             "Replace this with actual MCP tool calls. "
             "Use mcp_yahoo-finance_get-ticker-info, mcp_yahoo-finance_get-ticker-news, "
             "and mcp_yahoo-finance_ticker-earning. "
             "See docstring for example calls and expected response structure."
-        )   "latest_news": [
-                {
-                    "headline": "Apple announces new AI features",
-                    "source": "CNBC",
-                    "sentiment": "Positive",
-                    "published": "2h ago",
-                },
-                {
-                    "headline": "Q1 earnings beat estimates",
-                    "source": "Reuters",
-                    "sentiment": "Positive",
-                    "published": "1d ago",
-                },
-            ],
-            "earnings": {
-                "next_date": "2026-04-30",
-                "previous_eps": 6.05,
-                "estimated_eps": 6.20,
-            },
-            "recommendation": "BUY",
-            "target_price": 295.00,
-            "risk_level": "Low",
-        }
+        )
 
 
 class ReportGenerator:
