@@ -1,0 +1,14 @@
+# Files to exclude from publishing package
+test_*.py
+run_tests.sh
+package.sh
+*.pyc
+__pycache__/
+.pytest_cache/
+*.egg-info/
+.DS_Store
+*.swp
+*.swo
+*~
+.clawhub.ignore
+*.zip

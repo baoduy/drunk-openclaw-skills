@@ -1,0 +1,71 @@
+{
+  "name": "drunk-openclaw-skills",
+  "workspaceFolder": "/code",
+
+  "dockerComposeFile": "dev-compose.yaml",
+  "service": "dev",
+  "remoteUser": "root",
+  "remoteEnv": {
+    "LOCALWSF": "${localWorkspaceFolder}",
+    "CONTAINERWSF": "${containerWorkspaceFolder}",
+    "SHELL": "/bin/bash"
+  },
+
+  // Features to add to the dev container. More info: https://containers.dev/features.
+  "features": {
+    "ghcr.io/devcontainers/features/python:1": {
+      "version": "3.11",
+      "installTools": true
+    },
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "20"
+    }
+  },
+
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  // "forwardPorts": [],
+
+  // Use 'postCreateCommand' to run commands after the container is created.
+  // Most packages are pre-installed in the Dockerfile
+  //"postCreateCommand": "echo 'All tools installed and ready!'",
+  //"postStartCommand": "echo 'Dev environment ready! uv, pnpm, clawhub, and Python packages are available.'",
+
+  // Configure tool-specific properties.
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-python.black-formatter",
+        "ms-python.pylint",
+        "ms-python.debugpy",
+        "esbenp.prettier-vscode",
+        "steoates.autoimport",
+        "amatiasq.sort-imports",
+        "fogio.jetbrains-product-icon-theme",
+        "digimezzo.jetbrains-rider-new-ui-theme",
+        "fogio.jetbrains-file-icon-theme",
+        "fogio.jetbrains-color-theme",
+        "GitHub.copilot-chat"
+      ],
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/local/bin/python3",
+        "python.formatting.provider": "black",
+        "python.linting.enabled": true,
+        "python.linting.pylintEnabled": true,
+        "editor.formatOnSave": true,
+        "[python]": {
+          "editor.defaultFormatter": "ms-python.black-formatter",
+          "editor.formatOnSave": true,
+          "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit"
+          }
+        }
+      }
+    },
+    "jetbrains": {
+      "backend": "WebStorm",
+      "plugins": ["GitHub Copilot"]
+    }
+  }
+}

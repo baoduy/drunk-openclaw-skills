@@ -1,0 +1,14 @@
+services:
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    platform: linux/arm64
+    container_name: drunk-openclaw-skills
+    command: tail -f /dev/null
+    user: root
+    env_file:
+      - .env
+    volumes:
+      - ../:/code
+    working_dir: /code
