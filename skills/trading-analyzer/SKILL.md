@@ -7,7 +7,8 @@ metadata:
       {
         "emoji": "📈",
         "os": ["darwin", "linux", "win32"],
-        "mcp_servers": ["tradingview-m", "alpha-vantage", "yahoo-finance"],
+        "mcp_servers":
+          ["tradingview-mcp", "alphavantage", "yahoo-finance-server"],
         "description": "Uses MCP (Model Context Protocol) tools auto-discovered by mcporter for seamless integration with TradingView, Alpha Vantage, and Yahoo Finance APIs",
       },
   }
@@ -23,36 +24,36 @@ Multi-source market analysis combining cryptocurrency and stock data with AI-pow
 
 ```bash
 # List available TradingView tools
-mcporter list tradingview-m
+mcporter list tradingview-mcp
 
 # Analyze a specific coin
-mcporter call tradingview-m.coin_analysis symbol=BTCUSDT exchange=BINANCE timeframe=15m
+mcporter call tradingview-mcp.coin_analysis symbol=BTCUSDT exchange=BINANCE timeframe=15m
 
 # Find bullish coins
-mcporter call tradingview-m.top_gainers exchange=BINANCE timeframe=4h limit=25
+mcporter call tradingview-mcp.top_gainers exchange=BINANCE timeframe=4h limit=25
 
 # Detect volume breakouts
-mcporter call tradingview-m.volume_breakout_scanner exchange=KUCOIN timeframe=15m volume_multiplier=2.0
+mcporter call tradingview-mcp.volume_breakout_scanner exchange=KUCOIN timeframe=15m volume_multiplier=2.0
 ```
 
 ### Analyze Stock
 
 ```bash
 # List available Alpha Vantage and Yahoo Finance tools
-mcporter list alpha-vantage
-mcporter list yahoo-finance
+mcporter list alphavantage
+mcporter list yahoo-finance-server
 
 # Get company fundamentals
-mcporter call alpha-vantage.get_ticker_info symbol=AAPL
+mcporter call alphavantage.get_ticker_info symbol=AAPL
 
 # Fetch latest news
-mcporter call yahoo-finance.get_ticker_news symbol=AAPL count=10
+mcporter call yahoo-finance-server.get_ticker_news symbol=AAPL count=10
 
 # Get stock price history
-mcporter call alpha-vantage.get_price_history symbol=AAPL period=1y interval=1d
+mcporter call alphavantage.get_price_history symbol=AAPL period=1y interval=1d
 
 # Get earnings data
-mcporter call alpha-vantage.ticker_earning symbol=AAPL period=quarterly
+mcporter call alphavantage.ticker_earning symbol=AAPL period=quarterly
 ```
 
 ## Common Use Cases
@@ -61,27 +62,27 @@ mcporter call alpha-vantage.ticker_earning symbol=AAPL period=quarterly
 
 ```bash
 # 1. Get immediate technical overview
-mcporter call tradingview-m.coin_analysis symbol=BTCUSDT
+mcporter call tradingview-mcp.coin_analysis symbol=BTCUSDT
 
 # 2. Identify breakout opportunities
-mcporter call tradingview-m.smart_volume_scanner \
+mcporter call tradingview-mcp.smart_volume_scanner \
   exchange=BINANCE min_volume_ratio=2.0 min_price_change=2.0
 
 # 3. Find bullish signals
-mcporter call tradingview-m.top_gainers exchange=BINANCE timeframe=4h
+mcporter call tradingview-mcp.top_gainers exchange=BINANCE timeframe=4h
 ```
 
 ### 2. Fundamental Stock Research
 
 ```bash
 # 1. Get company metrics
-mcporter call alpha-vantage.get_ticker_info symbol=TSLA
+mcporter call alphavantage.get_ticker_info symbol=TSLA
 
 # 2. Get sentiment from latest news
-mcporter call yahoo-finance.get_ticker_news symbol=TSLA count=5
+mcporter call yahoo-finance-server.get_ticker_news symbol=TSLA count=5
 
 # 3. Confirm trend with historical data
-mcporter call alpha-vantage.get_price_history symbol=TSLA period=1y interval=1d
+mcporter call alphavantage.get_price_history symbol=TSLA period=1y interval=1d
 ```
 
 ### 3. Market Screening
@@ -90,14 +91,14 @@ Use crypto screeners to identify opportunities:
 
 ```bash
 # Top performers
-mcporter call tradingview-m.top_gainers exchange=BINANCE timeframe=1h limit=50
+mcporter call tradingview-mcp.top_gainers exchange=BINANCE timeframe=1h limit=50
 
 # Volume + momentum
-mcporter call tradingview-m.smart_volume_scanner \
+mcporter call tradingview-mcp.smart_volume_scanner \
   exchange=KUCOIN min_volume_ratio=3.0 rsi_range=oversold
 
 # Top stock sectors
-mcporter call yahoo-finance.get_top_entities \
+mcporter call yahoo-finance-server.get_top_entities \
   entity_type=performing_companies sector=technology count=10
 ```
 
@@ -219,24 +220,5 @@ Outlook: BULLISH | Target: $295 | Risk: Low
 
 ```bash
 # Verify MCP servers running
-echo "Check .vscode/mcp.json configuration"
-
-# Debug API keys
-echo "Ensure Alpha Vantage API key is set"
-
-# Test connectivity
-python3 -c "import requests; print(requests.__version__)"
+mcporter list
 ```
-
-## Extensions
-
-To add new data sources:
-
-1. Create new analyzer in `analyzers/` directory
-2. Implement `analyze(symbol, options)` interface
-3. Register in routing logic
-4. Update tools reference
-
-## License
-
-MIT
