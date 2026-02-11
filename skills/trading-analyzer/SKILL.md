@@ -7,36 +7,8 @@ metadata:
       {
         "emoji": "📈",
         "os": ["darwin", "linux", "win32"],
-        "requires": { "bins": ["node"], "env": ["ALPHAVANTAGE_API_KEY"] },
         "mcp_servers": ["tradingview-m", "alpha-vantage", "yahoo-finance"],
         "description": "Uses MCP (Model Context Protocol) tools auto-discovered by mcporter for seamless integration with TradingView, Alpha Vantage, and Yahoo Finance APIs",
-        "install":
-          [
-            {
-              "id": "mcporter-install",
-              "kind": "exec",
-              "command": "npm install -g mcporter",
-              "label": "Install mcporter (MCP runtime and CLI)",
-            },
-            {
-              "id": "mcporter-verify",
-              "kind": "exec",
-              "command": "mcporter --version",
-              "label": "Verify mcporter installation",
-            },
-            {
-              "id": "mcporter-list",
-              "kind": "exec",
-              "command": "mcporter list",
-              "label": "Auto-discover configured MCP servers",
-            },
-            {
-              "id": "api-key-setup",
-              "kind": "exec",
-              "command": 'export ALPHAVANTAGE_API_KEY="your_key_from_alphavantage.co_api"',
-              "label": "Set Alpha Vantage API key (recommended)",
-            },
-          ],
       },
   }
 ---
